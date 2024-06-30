@@ -15,7 +15,13 @@
   <input type="text" id="search" placeholder="Search by name...">
   <ul id="contact-list">
     <li class="contact-item">
-      <div class="contact-summary">Danny Cohen - 054-1234567</div>
+      <div class="contact-summary">
+        <span>Danny Cohen - 054-1234567</span>
+        <div class="buttons">
+          <button class="more-info">More Info</button>
+          <button class="delete">Delete</button>
+        </div>
+      </div>
       <div class="contact-details">
         <p><strong>Address:</strong> 1 Herzl St, Tel Aviv</p>
         <p><strong>Email:</strong> dani@example.com</p>
@@ -23,7 +29,13 @@
       </div>
     </li>
     <li class="contact-item">
-      <div class="contact-summary">Michal Levi - 052-2345678</div>
+      <div class="contact-summary">
+        <span>Michal Levi - 052-2345678</span>
+        <div class="buttons">
+          <button class="more-info">More Info</button>
+          <button class="delete">Delete</button>
+        </div>
+      </div>
       <div class="contact-details">
         <p><strong>Address:</strong> 10 Ben Gurion St, Haifa</p>
         <p><strong>Email:</strong> michal@example.com</p>
@@ -31,7 +43,13 @@
       </div>
     </li>
     <li class="contact-item">
-      <div class="contact-summary">Yossi Israeli - 050-3456789</div>
+      <div class="contact-summary">
+        <span>Yossi Israeli - 050-3456789</span>
+        <div class="buttons">
+          <button class="more-info">More Info</button>
+          <button class="delete">Delete</button>
+        </div>
+      </div>
       <div class="contact-details">
         <p><strong>Address:</strong> 15 Jabotinsky St, Jerusalem</p>
         <p><strong>Email:</strong> yossi@example.com</p>
@@ -39,10 +57,14 @@
       </div>
     </li>
   </ul>
+  <div class="actions">
+    <button id="add-contact">Add Contact</button>
+    <button id="delete-all">Delete All</button>
+  </div>
 </main>
 
 <footer>
-  <p>&copy; 2024 Phone Book</p>
+  <p>&copy; 2024 Phone Book by Oleg && Gleb</p>
 </footer>
 </body>
 </html>
