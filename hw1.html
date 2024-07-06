@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM#1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 20px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #333;
+    }
+    section {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    p {
+      font-size: 16px;
+      color: #555;
+    }
+    input[type="text"] {
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 8px 16px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .highlight { background-color: yellow; }
+    .underline { text-decoration: underline; }
+    .bold { font-weight: bold; }
+    .hidden { display: none; }
+    .visible { display: block; }
+    .strikethrough { text-decoration: line-through; }
+  </style>
+</head>
+<body>
+<h1>DOM#1</h1>
+
+<!-- 1 -->
+<h2>Task 1: Add CSS Classes</h2>
+<section>
+  <p id="paragraph1">This is a sample paragraph.</p>
+  <input type="text" id="classInput1" placeholder="Enter class name">
+  <button onclick="addClassToElement('paragraph1', 'classInput1')">Add Class</button>
+  <br><br>
+  <p id="paragraph2">This is a sample paragraph.</p>
+  <input type="text" id="classInput2" placeholder="Enter class name">
+  <button onclick="addClassToElement('paragraph2', 'classInput2')">Add Class</button>
+  <br><br>
+  <p id="paragraph3">This is a sample paragraph.</p>
+  <input type="text" id="classInput3" placeholder="Enter class name">
+  <button onclick="addClassToElement('paragraph3', 'classInput3')">Add Class</button>
+</section>
+
+<!-- 2 -->
+<h2>Task 2: Toggle Paragraph Visibility</h2>
+<section>
+  <p class="visible" id="paragraph4">This is a visible paragraph.</p>
+  <p class="hidden" id="paragraph5">This is a hidden paragraph.</p>
+  <p class="hidden" id="paragraph6">This is a hidden paragraph.</p>
+  <button onclick="toggleVisibility('paragraph4')">Toggle Visibility</button>
+  <button onclick="toggleVisibility('paragraph5')">Toggle Visibility</button>
+  <button onclick="toggleVisibility('paragraph6')">Toggle Visibility</button>
+</section>
+
+<!-- 3 -->
+<h2>Task 3: Add Strikethrough Style</h2>
+<section>
+  <p class="hidden" id="paragraph7" onclick="addStrikethrough(this)">Click me to toggle strikethrough</p>
+  <button onclick="toggleVisibility('paragraph7')">Show/Hide Paragraph</button>
+</section>
+
+<script>
+  function addClassToElement(elementId, inputId) {
+    var element = document.getElementById(elementId);
+    var className = document.getElementById(inputId).value;
+    element.classList.add(className);
+  }
+
+  function toggleVisibility(elementId) {
+    var element = document.getElementById(elementId);
+    if (element.classList.contains('hidden')) {
+      element.classList.remove('hidden');
+      element.classList.add('visible');
+    } else {
+      element.classList.remove('visible');
+      element.classList.add('hidden');
+    }
+  }
+
+  function addStrikethrough(element) {
+    if (element.classList.contains('strikethrough')) {
+      element.classList.remove('strikethrough');
+    } else {
+      element.classList.add('strikethrough');
+    }
+  }
+</script>
+</body>
+</html>
