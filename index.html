@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Phone Book</title>
   <link rel="stylesheet" href="css.css">
+
 </head>
 <body>
 <header>
@@ -14,48 +15,6 @@
 <main>
   <input type="text" id="search" placeholder="Search by name...">
   <ul id="contact-list">
-    <li class="contact-item">
-      <div class="contact-summary">
-        <span>Danny Cohen - 054-1234567</span>
-        <div class="buttons">
-          <button class="more-info">More Info</button>
-          <button class="delete">Delete</button>
-        </div>
-      </div>
-      <div class="contact-details">
-        <p><strong>Address:</strong> 1 Herzl St, Tel Aviv</p>
-        <p><strong>Email:</strong> dani@example.com</p>
-        <p><strong>Notes:</strong> Friend from work</p>
-      </div>
-    </li>
-    <li class="contact-item">
-      <div class="contact-summary">
-        <span>Michal Levi - 052-2345678</span>
-        <div class="buttons">
-          <button class="more-info">More Info</button>
-          <button class="delete">Delete</button>
-        </div>
-      </div>
-      <div class="contact-details">
-        <p><strong>Address:</strong> 10 Ben Gurion St, Haifa</p>
-        <p><strong>Email:</strong> michal@example.com</p>
-        <p><strong>Notes:</strong> Cousin</p>
-      </div>
-    </li>
-    <li class="contact-item">
-      <div class="contact-summary">
-        <span>Yossi Israeli - 050-3456789</span>
-        <div class="buttons">
-          <button class="more-info">More Info</button>
-          <button class="delete">Delete</button>
-        </div>
-      </div>
-      <div class="contact-details">
-        <p><strong>Address:</strong> 15 Jabotinsky St, Jerusalem</p>
-        <p><strong>Email:</strong> yossi@example.com</p>
-        <p><strong>Notes:</strong> Neighbor</p>
-      </div>
-    </li>
   </ul>
   <div class="actions">
     <button id="add-contact">Add Contact</button>
@@ -63,8 +22,30 @@
   </div>
 </main>
 
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close-popup">&times;</span>
+    <h2 id="popup-title">Add/Edit Contact</h2>
+    <form id="contact-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+      <label for="phone">Phone:</label>
+      <input type="text" id="phone" name="phone" required>
+      <label for="address">Address:</label>
+      <input type="text" id="address" name="address" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <label for="notes">Notes:</label>
+      <textarea id="notes" name="notes"></textarea>
+      <button type="submit" id="save-contact">Save</button>
+    </form>
+  </div>
+</div>
+
 <footer>
   <p>&copy; 2024 Phone Book by Oleg && Gleb</p>
 </footer>
+
+<script src="js.js"></script>
 </body>
 </html>
