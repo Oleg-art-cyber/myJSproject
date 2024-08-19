@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const closePopupBtn = document.querySelector('.close-popup');
   const contactForm = document.getElementById('contact-form');
   const popupTitle = document.getElementById('popup-title');
+  const searchInput = document.getElementById('search');
   let editingContact = null;
 
   const contacts = [
@@ -14,9 +15,9 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: 'Yossi Israeli', phone: '050-3456789', address: '15 Jabotinsky St, Jerusalem', email: 'yossi@example.com', notes: 'Neighbor' }
   ];
 
-  function renderContacts() {
+  function renderContacts(filteredContacts = contacts) {
     contactList.innerHTML = '';
-    contacts.forEach((contact, index) => {
+    filteredContacts.forEach((contact, index) => {
       const contactItem = document.createElement('li');
       contactItem.classList.add('contact-item');
       contactItem.innerHTML = `
@@ -24,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <span>${contact.name} - ${contact.phone}</span>
           <div class="buttons">
             <button class="more-info" data-index="${index}">More Info</button>
+            <button class="edit" data-index="${index}">Edit</button>
             <button class="delete" data-index="${index}">Delete</button>
           </div>
         </div>
@@ -80,10 +82,34 @@ document.addEventListener("DOMContentLoaded", () => {
     renderContacts();
   }
 
+  function editContact(index) {
+    const contact = contacts[index];
+    editingContact = index;
+    contactForm.name.value = contact.name;
+    contactForm.phone.value = contact.phone;
+    contactForm.address.value = contact.address;
+    contactForm.email.value = contact.email;
+    contactForm.notes.value = contact.notes;
+    openPopup(true);
+  }
+
+  function searchContacts() {
+    const query = searchInput.value.toLowerCase();
+    const filteredContacts = contacts.filter(contact =>
+      contact.name.toLowerCase().includes(query) ||
+      contact.phone.toLowerCase().includes(query) ||
+      contact.address.toLowerCase().includes(query) ||
+      contact.email.toLowerCase().includes(query) ||
+      contact.notes.toLowerCase().includes(query)
+    );
+    renderContacts(filteredContacts);
+  }
+
   addContactBtn.addEventListener('click', () => openPopup());
   closePopupBtn.addEventListener('click', closePopup);
   contactForm.addEventListener('submit', addContact);
   deleteAllBtn.addEventListener('click', deleteAllContacts);
+  searchInput.addEventListener('input', searchContacts);
 
   contactList.addEventListener('click', (event) => {
     if (event.target.classList.contains('more-info')) {
@@ -95,14 +121,7 @@ document.addEventListener("DOMContentLoaded", () => {
       deleteContact(index);
     } else if (event.target.classList.contains('edit')) {
       const index = event.target.dataset.index;
-      const contact = contacts[index];
-      editingContact = index;
-      openPopup(true);
-      contactForm.name.value = contact.name;
-      contactForm.phone.value = contact.phone;
-      contactForm.address.value = contact.address;
-      contactForm.email.value = contact.email;
-      contactForm.notes.value = contact.notes;
+      editContact(index);
     }
   });
 
