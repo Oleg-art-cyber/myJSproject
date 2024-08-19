@@ -2,28 +2,34 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  background: linear-gradient(to right, #ece9e6, #ffffff);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  color: #333;
 }
 
 header {
-  background: linear-gradient(to right, #4CAF50, #81C784);
+  background: linear-gradient(to right, #4CAF50, #66BB6A);
   color: white;
   padding: 15px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 10px 10px;
 }
 
 footer {
-  background: linear-gradient(to right, #4CAF50, #81C784);
+  background: linear-gradient(to right, #4CAF50, #66BB6A);
   color: white;
   padding: 10px;
   text-align: center;
-  position: fixed;
-  bottom: 0;
   width: 100%;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 10px 10px 0 0;
 }
 
 main {
+  flex: 1;
   padding: 20px;
   margin: 0 auto;
   max-width: 800px;
@@ -35,7 +41,8 @@ main {
   margin-bottom: 20px;
   box-sizing: border-box;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 25px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 #contact-list {
@@ -44,13 +51,13 @@ main {
 }
 
 .contact-item {
-  padding: 10px;
+  padding: 15px;
   background-color: #fff;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   border: 1px solid #ddd;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, background-color 0.3s;
 }
 
 .contact-summary {
@@ -63,11 +70,12 @@ main {
 
 .buttons {
   display: flex;
-  gap: 5px;
+  gap: 10px;
 }
 
 .contact-summary:hover {
-  background-color: #f1f1f1;
+  background-color: #f0f0f0;
+  transform: scale(1.02);
 }
 
 .contact-details {
@@ -80,11 +88,12 @@ main {
 }
 
 button {
-  padding: 5px 10px;
+  padding: 10px 15px;
   margin-left: 5px;
   border: none;
-  border-radius: 3px;
+  border-radius: 25px;
   cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 button.more-info {
@@ -92,9 +101,19 @@ button.more-info {
   color: white;
 }
 
+button.more-info:hover {
+  background-color: #1976D2;
+  transform: scale(1.05);
+}
+
 button.delete {
   background-color: #f44336;
   color: white;
+}
+
+button.delete:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
 }
 
 .actions {
@@ -108,9 +127,19 @@ button.delete {
   color: white;
 }
 
+#add-contact:hover {
+  background-color: #388E3C;
+  transform: scale(1.05);
+}
+
 #delete-all {
   background-color: #f44336;
   color: white;
+}
+
+#delete-all:hover {
+  background-color: #d32f2f;
+  transform: scale(1.05);
 }
 
 .popup {
@@ -128,10 +157,46 @@ button.delete {
 .popup-content {
   background-color: #fff;
   padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   width: 300px;
   position: relative;
+}
+
+.popup-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.popup-content label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.popup-content input,
+.popup-content textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.popup-content button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.popup-content button:hover {
+  background-color: #388E3C;
 }
 
 .close-popup {
@@ -140,6 +205,7 @@ button.delete {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
+  color: #f44336;
 }
 
 @media (max-width: 600px) {
