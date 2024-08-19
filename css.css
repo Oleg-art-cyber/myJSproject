@@ -1,48 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(to right, #ece9e6, #ffffff);
+  background-color: #f5f7fa;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   color: #333;
 }
 
+.dark-theme {
+  background-color: #1c1c1c;
+  color: #f5f7fa;
+}
+
 header {
-  background: linear-gradient(to right, #4CAF50, #66BB6A);
+  font-family: 'Lora', serif;
+  background: linear-gradient(to right, #004466, #0073b1);
   color: white;
-  padding: 15px;
+  padding: 20px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border-radius: 0 0 10px 10px;
 }
 
 footer {
-  background: linear-gradient(to right, #4CAF50, #66BB6A);
+  font-family: 'Lora', serif;
+  background: linear-gradient(to right, #004466, #0073b1);
   color: white;
-  padding: 10px;
+  padding: 15px;
   text-align: center;
   width: 100%;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
-  border-radius: 10px 10px 0 0;
 }
 
 main {
   flex: 1;
-  padding: 20px;
+  padding: 30px;
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 900px;
 }
 
 #search {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 15px;
+  margin-bottom: 25px;
   box-sizing: border-box;
-  border: 1px solid #ccc;
-  border-radius: 25px;
+  border: 2px solid #ddd;
+  border-radius: 50px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+}
+
+.dark-theme #search {
+  background-color: #333;
+  color: #f5f7fa;
+  border: 2px solid #555;
 }
 
 #contact-list {
@@ -51,13 +65,18 @@ main {
 }
 
 .contact-item {
-  padding: 15px;
+  padding: 20px;
   background-color: #fff;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border: 1px solid #ddd;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, background-color 0.3s;
+}
+
+.dark-theme .contact-item {
+  background-color: #555;
+  color: #f5f7fa;
 }
 
 .contact-summary {
@@ -70,17 +89,21 @@ main {
 
 .buttons {
   display: flex;
-  gap: 10px;
+  gap: 15px;
 }
 
 .contact-summary:hover {
   background-color: #f0f0f0;
-  transform: scale(1.02);
+  transform: scale(1.03);
+}
+
+.dark-theme .contact-summary:hover {
+  background-color: #666;
 }
 
 .contact-details {
   display: none;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .contact-item:hover .contact-details {
@@ -88,57 +111,67 @@ main {
 }
 
 button {
-  padding: 10px 15px;
-  margin-left: 5px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 25px;
+  border-radius: 50px;
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
+  font-size: 14px;
 }
 
 button.more-info {
-  background-color: #2196F3;
+  background-color: #005582;
   color: white;
 }
 
 button.more-info:hover {
-  background-color: #1976D2;
+  background-color: #004466;
   transform: scale(1.05);
 }
 
 button.delete {
-  background-color: #f44336;
+  background-color: #d9534f;
   color: white;
 }
 
 button.delete:hover {
-  background-color: #d32f2f;
+  background-color: #c9302c;
   transform: scale(1.05);
 }
 
 .actions {
-  margin-top: 20px;
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
 }
 
 #add-contact {
-  background-color: #4CAF50;
+  background-color: #28a745;
   color: white;
 }
 
 #add-contact:hover {
-  background-color: #388E3C;
+  background-color: #218838;
   transform: scale(1.05);
 }
 
 #delete-all {
-  background-color: #f44336;
+  background-color: #d9534f;
   color: white;
 }
 
 #delete-all:hover {
-  background-color: #d32f2f;
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+#toggle-effect {
+  background-color: #0073b1;
+  color: white;
+}
+
+#toggle-effect:hover {
+  background-color: #005582;
   transform: scale(1.05);
 }
 
@@ -156,17 +189,22 @@ button.delete:hover {
 
 .popup-content {
   background-color: #fff;
-  padding: 20px;
+  padding: 25px;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 300px;
+  width: 350px;
   position: relative;
+}
+
+.dark-theme .popup-content {
+  background-color: #555;
+  color: #f5f7fa;
 }
 
 .popup-content form {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
 
 .popup-content label {
@@ -177,26 +215,33 @@ button.delete:hover {
 .popup-content input,
 .popup-content textarea {
   width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: 12px;
+  border: 2px solid #ccc;
+  border-radius: 10px;
   box-sizing: border-box;
+  font-size: 14px;
+}
+
+.dark-theme .popup-content input,
+.dark-theme .popup-content textarea {
+  background-color: #333;
+  color: #f5f7fa;
+  border: 2px solid #555;
 }
 
 .popup-content button {
   width: 100%;
-  padding: 10px;
+  padding: 15px;
   border: none;
-  border-radius: 5px;
-  background-color: #4CAF50;
+  border-radius: 10px;
+  background-color: #0073b1;
   color: white;
   font-size: 16px;
   cursor: pointer;
 }
 
 .popup-content button:hover {
-  background-color: #388E3C;
+  background-color: #005582;
 }
 
 .close-popup {
@@ -205,7 +250,7 @@ button.delete:hover {
   right: 10px;
   font-size: 20px;
   cursor: pointer;
-  color: #f44336;
+  color: #d9534f;
 }
 
 @media (max-width: 600px) {
@@ -214,7 +259,7 @@ button.delete:hover {
   }
 
   main {
-    padding: 10px;
+    padding: 20px;
   }
 
   .contact-item {
@@ -230,8 +275,7 @@ button.delete:hover {
   }
 
   button {
-    padding: 8px 15px;
-    margin-left: 10px;
+    padding: 10px 15px;
   }
 
   .actions {
@@ -242,4 +286,9 @@ button.delete:hover {
   #add-contact, #delete-all {
     margin-top: 10px;
   }
+}
+
+.dark-theme body {
+  background-color: #1c1c1c;
+  color: #f5f7fa;
 }
