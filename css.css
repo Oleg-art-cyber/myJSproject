@@ -16,23 +16,16 @@ body {
   color: #f5f7fa;
 }
 
-header {
+header, footer {
+  width: 100%;
   font-family: 'Lora', serif;
   background: linear-gradient(to right, #004466, #0073b1);
   color: white;
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-footer {
-  font-family: 'Lora', serif;
-  background: linear-gradient(to right, #004466, #0073b1);
-  color: white;
-  padding: 15px;
-  text-align: center;
-  width: 100%;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  background-size: cover;
 }
 
 main {
@@ -288,6 +281,7 @@ button.delete:hover {
   }
 }
 
+/* Dark theme styles */
 .dark-theme body {
   background-color: #1c1c1c;
   color: #f5f7fa;
