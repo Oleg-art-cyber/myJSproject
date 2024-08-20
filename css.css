@@ -16,7 +16,30 @@ body {
   color: #f5f7fa;
 }
 
-header, footer {
+.container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+footer {
+  width: 100%;
+  font-family: 'Lora', serif;
+  background: linear-gradient(to right, #004466, #0073b1);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+  margin: 0;
+  background-size: cover;
+  position: relative;
+  bottom: 0;
+  left: 0;
+}
+
+header {
   width: 100%;
   font-family: 'Lora', serif;
   background: linear-gradient(to right, #004466, #0073b1);
