@@ -1,3 +1,4 @@
+/* Styles for the entire page and layout */
 @import url('https://fonts.googleapis.com/css2?family=Lora:wght@400;700&display=swap');
 
 body {
@@ -37,6 +38,7 @@ footer {
   position: relative;
   bottom: 0;
   left: 0;
+  z-index: 1; /* Lower z-index to avoid overlapping with popups */
 }
 
 header {
@@ -191,6 +193,7 @@ button.delete:hover {
   transform: scale(1.05);
 }
 
+/* Popup styles */
 .popup {
   display: none;
   position: fixed;
@@ -201,6 +204,7 @@ button.delete:hover {
   background-color: rgba(0, 0, 0, 0.5);
   justify-content: center;
   align-items: center;
+  z-index: 9999; /* Ensure the popup is above everything else */
 }
 
 .popup-content {
@@ -267,6 +271,32 @@ button.delete:hover {
   font-size: 20px;
   cursor: pointer;
   color: #d9534f;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+#confirm-delete {
+  background-color: #d9534f;
+  color: white;
+}
+
+#confirm-delete:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+#cancel-delete {
+  background-color: #6c757d;
+  color: white;
+}
+
+#cancel-delete:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
 }
 
 @media (max-width: 600px) {
