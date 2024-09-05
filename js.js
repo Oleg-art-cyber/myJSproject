@@ -1,24 +1,23 @@
 'use strict';
 
 document.addEventListener("DOMContentLoaded", () => {
-  const contactList = document.getElementById('contact-list'); // Contact list element
-  const addContactBtn = document.getElementById('add-contact'); // Button to add a new contact
-  const deleteAllBtn = document.getElementById('delete-all'); // Button to delete all contacts
-  const popup = document.getElementById('popup'); // Popup for adding/editing a contact
-  const closePopupBtn = document.querySelector('.close-popup'); // Button to close the popup
-  const contactForm = document.getElementById('contact-form'); // Form for adding/editing a contact
-  const popupTitle = document.getElementById('popup-title'); // Title of the popup
-  const searchInput = document.getElementById('search'); // Search input field
-  const toggleThemeBtn = document.getElementById('toggle-effect'); // Button to toggle between themes
-  const confirmPopup = document.getElementById('confirm-popup'); // Popup for delete confirmation
-  const confirmDeleteBtn = document.getElementById('confirm-delete'); // Button to confirm deletion
-  const cancelDeleteBtn = document.getElementById('cancel-delete'); // Button to cancel deletion
-  const confirmMessage = confirmPopup.querySelector('p'); // Message in the confirmation popup
-  let editingContact = null; // Index of the contact being edited, if any
-  let contactToDelete = null; // Index of the contact to delete, if any
-  let darkThemeActive = false; // Boolean to track the theme state
+  const contactList = document.getElementById('contact-list');
+  const addContactBtn = document.getElementById('add-contact');
+  const deleteAllBtn = document.getElementById('delete-all');
+  const popup = document.getElementById('popup');
+  const closePopupBtn = document.querySelector('.close-popup');
+  const contactForm = document.getElementById('contact-form');
+  const popupTitle = document.getElementById('popup-title');
+  const searchInput = document.getElementById('search');
+  const toggleThemeBtn = document.getElementById('toggle-effect');
+  const confirmPopup = document.getElementById('confirm-popup');
+  const confirmDeleteBtn = document.getElementById('confirm-delete');
+  const cancelDeleteBtn = document.getElementById('cancel-delete');
+  const confirmMessage = confirmPopup.querySelector('p');
+  let editingContact = null;
+  let contactToDelete = null;
+  let darkThemeActive = false;
 
-  // Initial set of contacts
   const contacts = [
     { name: 'Danny Cohen', phone: '054-1234567', address: '1 Herzl St, Tel Aviv', email: 'dani@example.com', notes: 'Friend from work' },
     { name: 'Michal Levi', phone: '052-2345678', address: '10 Ben Gurion St, Haifa', email: 'michal@example.com', notes: 'Cousin' },
@@ -26,66 +25,70 @@ document.addEventListener("DOMContentLoaded", () => {
     { name: 'Nadav Regev', phone: '053-9876543', address: '20 Dizengoff St, Tel Aviv', email: 'nadav@example.com', notes: 'College friend' }
   ];
 
-  // Sort contacts by name
   contacts.sort((a, b) => a.name.localeCompare(b.name));
 
-  // Render contacts in the contact list
   function renderContacts(filteredContacts = contacts) {
-    contactList.innerHTML = ''; // Clear the current list
-    filteredContacts.forEach((contact, index) => {
-      const contactItem = document.createElement('li'); // Create a new list item for the contact
-      contactItem.classList.add('contact-item'); // Add a class to the list item
-      contactItem.innerHTML = `
-        <div class="contact-summary">
-          <span>${contact.name} - ${contact.phone}</span>
-          <div class="buttons">
-            <button class="more-info" data-index="${index}">More Info</button>
-            <button class="edit" data-index="${index}">Edit</button>
-            <button class="delete" data-index="${index}">Delete</button>
+    contactList.innerHTML = '';
+    if (filteredContacts.length === 0) {
+      contactList.innerHTML = '<li>List is empty</li>';
+    } else {
+      filteredContacts.forEach((contact, index) => {
+        const contactItem = document.createElement('li');
+        contactItem.classList.add('contact-item');
+        contactItem.innerHTML = `
+          <div class="contact-summary">
+            <span>${contact.name} - ${contact.phone}</span>
+            <div class="buttons">
+              <button class="more-info" data-index="${index}">More Info</button>
+              <button class="edit" data-index="${index}">Edit</button>
+              <button class="delete" data-index="${index}">Delete</button>
+            </div>
           </div>
-        </div>
-        <div class="contact-details">
-          <p><strong>Address:</strong> ${contact.address}</p>
-          <p><strong>Email:</strong> ${contact.email}</p>
-          <p><strong>Notes:</strong> ${contact.notes}</p>
-        </div>
-      `;
-      contactList.appendChild(contactItem); // Append the contact item to the list
-
-      // Add event listeners for hover effect
-      contactItem.addEventListener('mouseover', () => {
-        contactItem.classList.add('hovered');
+          <div class="contact-details">
+            <p><strong>Address:</strong> ${contact.address}</p>
+            <p><strong>Email:</strong> ${contact.email}</p>
+            <p><strong>Notes:</strong> ${contact.notes}</p>
+          </div>
+        `;
+        contactList.appendChild(contactItem);
       });
-
-      contactItem.addEventListener('mouseout', () => {
-        contactItem.classList.remove('hovered');
-      });
-    });
-  }
-
-  // Open the popup for adding or editing a contact
-  function openPopup(editing = false) {
-    popup.style.display = 'flex'; // Show the popup
-    popupTitle.textContent = editing ? 'Edit Contact' : 'Add Contact'; // Set the popup title
-    if (!editing) {
-      contactForm.reset(); // Reset the form if not editing
-      editingContact = null; // Clear the editing index
     }
   }
 
-  // Close the popup
-  function closePopup() {
-    popup.style.display = 'none'; // Hide the popup
+  function openPopup(editing = false) {
+    popup.style.display = 'flex';
+    popupTitle.textContent = editing ? 'Edit Contact' : 'Add Contact';
+    if (!editing) {
+      contactForm.reset();
+      editingContact = null;
+    }
   }
 
-  // Add or edit a contact
-  function addContact(event) {
-    event.preventDefault(); // Prevent form submission
+  function closePopup() {
+    popup.style.display = 'none';
+  }
 
-    // Check if the name already exists
+  function validatePhone(phone) {
+    const phonePattern = /^\d{2,3}-\d{7}$/;
+    return phonePattern.test(phone);
+  }
+
+  function addContact(event) {
+    event.preventDefault();
+
+    if (!contactForm.name.value || !contactForm.phone.value) {
+      alert('Name and phone are required.');
+      return;
+    }
+
+    if (!validatePhone(contactForm.phone.value)) {
+      alert('Invalid phone number format. Use XXX-XXXXXXX.');
+      return;
+    }
+
     const existingContact = contacts.find(contact => contact.name.toLowerCase() === contactForm.name.value.toLowerCase());
     if (existingContact && editingContact === null) {
-      alert('Contact with this name already exists.'); // Show an alert if the name exists
+      alert('Contact with this name already exists.');
       return;
     }
 
@@ -98,43 +101,39 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     if (editingContact !== null) {
-      contacts[editingContact] = newContact; // Update the contact if editing
+      contacts[editingContact] = newContact;
     } else {
-      contacts.push(newContact); // Add the contact if not editing
+      contacts.push(newContact);
     }
 
-    contacts.sort((a, b) => a.name.localeCompare(b.name)); // Re-sort contacts
-    renderContacts(); // Re-render the contact list
-    closePopup(); // Close the popup
+    contacts.sort((a, b) => a.name.localeCompare(b.name));
+    renderContacts();
+    closePopup();
   }
 
-  // Delete a specific contact
   function deleteContact(index) {
-    contacts.splice(index, 1); // Remove the contact from the array
-    renderContacts(); // Re-render the contact list
+    contacts.splice(index, 1);
+    renderContacts();
   }
 
-  // Delete all contacts
   function deleteAllContacts() {
-    contacts.length = 0; // Clear the contacts array
-    renderContacts(); // Re-render the contact list
+    contacts.length = 0;
+    renderContacts();
   }
 
-  // Edit a contact
   function editContact(index) {
-    const contact = contacts[index]; // Get the contact to edit
-    editingContact = index; // Set the editing index
-    contactForm.name.value = contact.name; // Populate the form with contact details
+    const contact = contacts[index];
+    editingContact = index;
+    contactForm.name.value = contact.name;
     contactForm.phone.value = contact.phone;
     contactForm.address.value = contact.address;
     contactForm.email.value = contact.email;
     contactForm.notes.value = contact.notes;
-    openPopup(true); // Open the popup in edit mode
+    openPopup(true);
   }
 
-  // Search contacts
   function searchContacts() {
-    const query = searchInput.value.toLowerCase(); // Get the search query
+    const query = searchInput.value.toLowerCase();
     const filteredContacts = contacts.filter(contact =>
       contact.name.toLowerCase().includes(query) ||
       contact.phone.toLowerCase().includes(query) ||
@@ -142,78 +141,65 @@ document.addEventListener("DOMContentLoaded", () => {
       contact.email.toLowerCase().includes(query) ||
       contact.notes.toLowerCase().includes(query)
     );
-    renderContacts(filteredContacts); // Re-render the contact list with the filtered contacts
+    renderContacts(filteredContacts);
   }
 
-  // Toggle theme between light and dark
   function toggleTheme() {
-    document.body.classList.toggle('dark-theme'); // Toggle the theme class on the body
-    darkThemeActive = !darkThemeActive; // Update the theme state
+    document.body.classList.toggle('dark-theme');
+    darkThemeActive = !darkThemeActive;
   }
 
-  // Event listeners
-  addContactBtn.addEventListener('click', () => openPopup()); // Open the popup when add button is clicked
-  closePopupBtn.addEventListener('click', closePopup); // Close the popup when close button is clicked
-  contactForm.addEventListener('submit', addContact); // Handle form submission for adding/editing a contact
-
-  // Handle delete all button click
+  addContactBtn.addEventListener('click', () => openPopup());
+  closePopupBtn.addEventListener('click', closePopup);
+  contactForm.addEventListener('submit', addContact);
   deleteAllBtn.addEventListener('click', () => {
-    confirmMessage.textContent = 'Are you sure you want to delete all contacts?'; // Set the confirmation message
-    confirmDeleteBtn.textContent = 'Yes, delete all'; // Set the confirmation button text
-    confirmPopup.style.display = 'flex'; // Show the confirmation popup
-    contactToDelete = null; // Clear the specific contact to delete
+    confirmMessage.textContent = 'Are you sure you want to delete all contacts?';
+    confirmDeleteBtn.textContent = 'Yes, delete all';
+    confirmPopup.style.display = 'flex';
+    contactToDelete = null;
   });
 
-  // Handle confirmation of deletion
   confirmDeleteBtn.addEventListener('click', () => {
     if (contactToDelete !== null) {
-      deleteContact(contactToDelete); // Delete the specific contact if set
-      contactToDelete = null; // Clear the contact to delete
+      deleteContact(contactToDelete);
+      contactToDelete = null;
     } else {
-      deleteAllContacts(); // Delete all contacts if no specific contact is set
+      deleteAllContacts();
     }
-    confirmPopup.style.display = 'none'; // Hide the confirmation popup
+    confirmPopup.style.display = 'none';
   });
 
-  // Handle cancellation of deletion
   cancelDeleteBtn.addEventListener('click', () => {
-    confirmPopup.style.display = 'none'; // Hide the confirmation popup
-    contactToDelete = null; // Clear the specific contact to delete
+    confirmPopup.style.display = 'none';
+    contactToDelete = null;
   });
 
-  // Close the confirmation popup when clicking outside of it
   confirmPopup.addEventListener('click', (event) => {
     if (event.target === confirmPopup) {
-      confirmPopup.style.display = 'none'; // Hide the confirmation popup
-      contactToDelete = null; // Clear the specific contact to delete
+      confirmPopup.style.display = 'none';
+      contactToDelete = null;
     }
   });
 
-  // Handle click events on the contact list
   contactList.addEventListener('click', (event) => {
     if (event.target.classList.contains('more-info')) {
-      const details = event.target.closest('.contact-item').querySelector('.contact-details'); // Get the details element
-      details.style.display = details.style.display === 'block' ? 'none' : 'block'; // Toggle the details visibility
+      const details = event.target.closest('.contact-item').querySelector('.contact-details');
+      details.style.display = details.style.display === 'block' ? 'none' : 'block';
     } else if (event.target.classList.contains('delete')) {
-      const index = event.target.dataset.index; // Get the index of the contact to delete
-      contactToDelete = index; // Set the contact to delete
-      const contact = contacts[index]; // Get the contact details
-      confirmMessage.textContent = `Are you sure you want to delete ${contact.name}?`; // Set the confirmation message
-      confirmDeleteBtn.textContent = 'Yes, delete'; // Set the confirmation button text
-      confirmPopup.style.display = 'flex'; // Show the confirmation popup
+      const index = event.target.dataset.index;
+      contactToDelete = index;
+      const contact = contacts[index];
+      confirmMessage.textContent = `Are you sure you want to delete ${contact.name}?`;
+      confirmDeleteBtn.textContent = 'Yes, delete';
+      confirmPopup.style.display = 'flex';
     } else if (event.target.classList.contains('edit')) {
-      const index = event.target.dataset.index; // Get the index of the contact to edit
-      editContact(index); // Edit the contact
+      const index = event.target.dataset.index;
+      editContact(index);
     }
   });
 
-  // Handle search input
-  searchInput.addEventListener('input', searchContacts); // Filter contacts based on search input
+  searchInput.addEventListener('input', searchContacts);
+  toggleThemeBtn.addEventListener('click', toggleTheme);
 
-  // Handle theme toggle button click
-  toggleThemeBtn.addEventListener('click', toggleTheme); // Toggle the theme when button is clicked
-
-  // Initial render of contacts
-  renderContacts(); // Render the contact list on page load
+  renderContacts();
 });
-
