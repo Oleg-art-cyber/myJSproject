@@ -45,9 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
           </div>
           <div class="contact-details">
-            <p><strong>Address:</strong> ${contact.address}</p>
-            <p><strong>Email:</strong> ${contact.email}</p>
-            <p><strong>Notes:</strong> ${contact.notes}</p>
+            <p><strong>Address:</strong> ${contact.address || 'N/A'}</p>
+            <p><strong>Email:</strong> ${contact.email || 'N/A'}</p>
+            <p><strong>Notes:</strong> ${contact.notes || 'N/A'}</p>
           </div>
         `;
         contactList.appendChild(contactItem);
@@ -95,9 +95,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const newContact = {
       name: contactForm.name.value,
       phone: contactForm.phone.value,
-      address: contactForm.address.value,
-      email: contactForm.email.value,
-      notes: contactForm.notes.value
+      address: contactForm.address.value || '', // Optional field
+      email: contactForm.email.value || '', // Optional field
+      notes: contactForm.notes.value || '' // Optional field
     };
 
     if (editingContact !== null) {
@@ -126,9 +126,9 @@ document.addEventListener("DOMContentLoaded", () => {
     editingContact = index;
     contactForm.name.value = contact.name;
     contactForm.phone.value = contact.phone;
-    contactForm.address.value = contact.address;
-    contactForm.email.value = contact.email;
-    contactForm.notes.value = contact.notes;
+    contactForm.address.value = contact.address || '';
+    contactForm.email.value = contact.email || '';
+    contactForm.notes.value = contact.notes || '';
     openPopup(true);
   }
 
